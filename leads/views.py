@@ -44,7 +44,8 @@ class CalculateAccountPerformanceView(generics.GenericAPIView):
     """
     View to calculate and return account performance metrics for a specific lead.
     """
-    
+    queryset = Lead.objects.all()
+    serializer_class = LeadSerializer
     def get(self, request, lead_id):
         try:
             lead = Lead.objects.get(lead_id=lead_id)
