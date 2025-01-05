@@ -22,7 +22,7 @@ This project provides a comprehensive solution for KAMs to manage their leads ef
 ## Installation Instructions
 
 1. Clone the repository:
-git clone https://github.com/yourusername/KAM-Lead-Management-System.git
+git clone https://github.com/Anupama218/Key-Account-Manager-KAM-Lead-Management-System
 cd Key-Account-Manager-KAM-Lead-Management-System
 
 2. Create a virtual environment:
