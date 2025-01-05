@@ -22,22 +22,28 @@ This project provides a comprehensive solution for KAMs to manage their leads ef
 ## Installation Instructions
 
 1. Clone the repository:
+
 git clone https://github.com/Anupama218/Key-Account-Manager-KAM-Lead-Management-System
+
 cd Key-Account-Manager-KAM-Lead-Management-System
 
 2. Create a virtual environment:
 
 3. Install the required dependencies:
+
 pip install -r requirements.txt
 
 4. Apply migrations:
+
 python manage.py makemigrations
+
 python manage.py migrate
 
 
 ## Running Instructions
 
 1. Start the development server:
+
 python manage.py runserver
 
 2. Access the application at `http://localhost:8000/`.
