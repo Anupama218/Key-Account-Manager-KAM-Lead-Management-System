@@ -2,6 +2,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import CallSync
 from .serializers import CallSyncSerializer
+import datetime
 
 class CallSyncListCreateView(generics.ListCreateAPIView):
     """
@@ -42,3 +43,12 @@ class CallSyncDetailView(generics.RetrieveUpdateDestroyAPIView):
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class TodaysCallsView(generics.ListAPIView):
+    """
+    View to retrieve all CallSync instances scheduled for today.
+    """
+    serializer_class = CallSyncSerializer
+
+    def get_queryset(self):
+        today = datetime.datetime.now().date()
+        return CallSync.objects.filter(scheduled_date__date=today)

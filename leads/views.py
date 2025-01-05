@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Lead
 from .serializers import LeadSerializer
+from interaction.models import Interaction
 
 class LeadListCreateView(generics.ListCreateAPIView):
     queryset = Lead.objects.all()
@@ -39,4 +40,30 @@ class LeadDetailView(generics.RetrieveUpdateDestroyAPIView):
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+class CalculateAccountPerformanceView(generics.GenericAPIView):
+    """
+    View to calculate and return account performance metrics for a specific lead.
+    """
+    
+    def get(self, request, lead_id):
+        try:
+            lead = Lead.objects.get(lead_id=lead_id)
+            # Retrieve all interactions related to the lead
+            interactions = Interaction.objects.filter(lead_id=lead_id)
+            
+            total_interactions = interactions.count()
+            successful_interactions = interactions.filter(call_status='successful').count()  # Count successful interactions
+            
+            # Calculate performance metrics
+            success_rate = (successful_interactions / total_interactions) * 100 if total_interactions > 0 else 0
+            performance_data = {
+                'total_interactions': total_interactions,
+                'successful_interactions': successful_interactions,
+                'success_rate': success_rate,
+                'lead_status': lead.status,
+            }
+            
+            return Response(performance_data, status=status.HTTP_200_OK)
+        
+        except Lead.DoesNotExist:
+            return Response({"error": "Lead not found."}, status=status.HTTP_404_NOT_FOUND)

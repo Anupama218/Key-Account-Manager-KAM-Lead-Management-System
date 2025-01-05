@@ -6,7 +6,7 @@ class CallSync(models.Model):
     call_id = models.CharField(max_length=55, primary_key=True)
     lead_id = models.CharField(max_length=50)
     scheduled_date = models.DateTimeField() 
-    timezone = models.CharField(max_length=20)    
+    timezone = models.CharField(max_length=20, default='IST')    
     last_called = models.DateTimeField()
     
     def __str__(self):
